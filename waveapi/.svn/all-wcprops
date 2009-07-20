@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/10/trunk/src/waveapi
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/10/trunk/src/waveapi/__init__.py
+END
+model_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/10/trunk/src/waveapi/model_test.py
+END
+model.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/10/trunk/src/waveapi/model.py
+END
+ops_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/10/trunk/src/waveapi/ops_test.py
+END
+ops.py
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/10/trunk/src/waveapi/ops.py
+END
+events.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/10/trunk/src/waveapi/events.py
+END
+robot_abstract_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/10/trunk/src/waveapi/robot_abstract_test.py
+END
+robot_abstract.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/10/trunk/src/waveapi/robot_abstract.py
+END
+errors.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/10/trunk/src/waveapi/errors.py
+END
+util_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/10/trunk/src/waveapi/util_test.py
+END
+document_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/10/trunk/src/waveapi/document_test.py
+END
+module_test_runner.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/10/trunk/src/waveapi/module_test_runner.py
+END
+util.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/10/trunk/src/waveapi/util.py
+END
+document.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/10/trunk/src/waveapi/document.py
+END
+robot.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/10/trunk/src/waveapi/robot.py
+END
+run_unit_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/10/trunk/src/waveapi/run_unit_tests.py
+END
