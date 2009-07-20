@@ -14,8 +14,6 @@ def OnBlipSubmitted( properties, context ):
 
     blip = context.GetBlipById( properties['blipId'] )
     contents = blip.GetDocument( ).GetText( )
-    
-    
 
     for word in profane_words:
         if word in contents:
