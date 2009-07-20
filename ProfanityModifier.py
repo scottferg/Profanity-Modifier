@@ -9,12 +9,19 @@ def OnRobotAdded( properties, context ):
 
 def OnBlipSubmitted( properties, context ):
     """Invoked when a new blip has been submitted"""
+    profane_words = [ "shit" ]
+    politically_correct_words = [ "poop" ]
+
     blip = context.GetBlipById( properties['blipId'] )
     contents = blip.GetDocument( ).GetText( )
     
-    if '???' in contents:
-        q = '"%s"' % contents.replace( '???', '*' )
-        blip.GetDocument().SetText( q )
+    
+
+    for word in profane_words:
+        if word in contents:
+            """Replace each profane word with it's politically correct alternative"""
+            q = '"%s"' % contents.replace( word, politically_correct_words[ profane_words.index( word ) ] )
+            blip.GetDocument().SetText( q )
 
 if __name__ == '__main__':
     profanity_modifier = robot.Robot( 'ProfanityModifier',
