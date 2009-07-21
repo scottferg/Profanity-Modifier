@@ -16,21 +16,23 @@ def ReplaceProfanity( blip ):
 	profane_words = [ "shit",
 					  "fuck",
 					  "rape",
-					  "damn"
+					  "damn",
+                      "cunt"
 					]
 
 	politically_correct_words = [ "poop",
 								  "gently caress",
 								  "surprise sex",
-								  "gosh darn" 
+								  "gosh darn",
+                                  "beef curtains"
                                 ]
 
 	contents = blip.GetDocument( ).GetText( )
 
 	for word in profane_words:
-		if word in contents:
+		if word in contents.lower( ):
 			"""Replace each profane word with it's politically correct alternative"""
-			q = '%s' % contents.replace( word, politically_correct_words[ profane_words.index( word ) ] )
+			q = '%s' % contents.lower( ).replace( word, politically_correct_words[ profane_words.index( word ) ] )
 			blip.GetDocument().SetText( q )
 
 if __name__ == '__main__':
