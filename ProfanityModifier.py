@@ -3,34 +3,23 @@ from waveapi import model
 from waveapi import robot
 
 def OnBlipSubmitted( properties, context ):
-	"""Invoked when a new blip has been submitted"""
-	blip = context.GetBlipById( properties['blipId'] )
-	ReplaceProfanity( blip )
+    """Invoked when a new blip has been submitted"""
+    blip = context.GetBlipById( properties['blipId'] )
+    ReplaceProfanity( blip )
 
 def OnWaveletBlipCreated( properties, context ):
-	"""Invoked when a new wavelet has been submitted"""
-	blip = context.GetBlipById( properties['blipId'] )
-	ReplaceProfanity( blip )
+    """Invoked when a new wavelet has been submitted"""
+    blip = context.GetBlipById( properties['blipId'] )
+    ReplaceProfanity( blip )
 
 def ReplaceProfanity( blip ):
-	profane_words = [ "shit",
-					  "fuck",
-					  "rape",
-					  "damn",
-                      "cunt"
-					]
+    profane_words = [ "shit", "fuck", "rape", "damn", "cunt" ]
+    politically_correct_words = [ "poop", "gently caress", "surprise sex", "gosh darn", "beef curtains" ]
 
-	politically_correct_words = [ "poop",
-								  "gently caress",
-								  "surprise sex",
-								  "gosh darn",
-                                  "beef curtains"
-                                ]
-
-	contents = blip.GetDocument( ).GetText( )
-
-	for word in profane_words:
-		if word in contents.lower( ):
+    for word in profane_words:
+        contents = blip.GetDocument( ).GetText( )
+		
+        if word in contents.lower( ):
 			"""Replace each profane word with it's politically correct alternative"""
 			q = '%s' % contents.lower( ).replace( word, politically_correct_words[ profane_words.index( word ) ] )
 			blip.GetDocument().SetText( q )
