@@ -42,8 +42,16 @@ def SpecifyFilter( contents ):
     new_words = contents.split( '/' )[1:]
 
     profane_word = ProfaneWord( )
-    profane_word.base_word = new_words[0]
+    profane_word.base_word = " ".join( new_words[0].split( ) )
     profane_word.correct_word = new_words[1]
+    
+    matched_words = db.GqlQuery( 'SELECT * FROM ProfaneWord WHERE base_word = :1', profane_word.base_word )
+
+    for matched_word in matched_words:
+        if matched_word.correct_word:
+            # We already have this word,
+            # don't write it
+            return
 
     profane_word.put( )
 
