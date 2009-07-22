@@ -26,11 +26,11 @@ def OnWaveletBlipCreated( properties, context ):
         ReplaceProfanity( contents, blip )
 
 def ReplaceProfanity( contents, blip ):
+    """Replace each profane word with it's politically correct alternative"""
     result = contents;
 
     for word in contents.lower( ).split( ' ' ):
-        """Replace each profane word with it's politically correct alternative"""
-        """Remember to remove unnecessary whitespace on the word before searching for it"""
+        # Remember to remove unnecessary whitespace on the word before searching for it
         matched_words = db.GqlQuery( 'SELECT * FROM ProfaneWord WHERE base_word = :1', " ".join( word.split( ) ) )
 
         for matched_word in matched_words:
@@ -45,6 +45,7 @@ def SpecifyFilter( contents ):
     profane_word.base_word = " ".join( new_words[0].split( ) )
     profane_word.correct_word = new_words[1]
     
+    # Query to see if we already have this word
     matched_words = db.GqlQuery( 'SELECT * FROM ProfaneWord WHERE base_word = :1', profane_word.base_word )
 
     for matched_word in matched_words:
