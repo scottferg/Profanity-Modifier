@@ -1,28 +1,51 @@
 from waveapi import events
 from waveapi import model
 from waveapi import robot
+from google.appengine.ext import db
+
+from ProfanityDatabase import ProfaneWord
 
 def OnBlipSubmitted( properties, context ):
     """Invoked when a new blip has been submitted"""
     blip = context.GetBlipById( properties['blipId'] )
-    ReplaceProfanity( blip )
+    contents = blip.GetDocument( ).GetText( )
+
+    if 'LEARN/' in contents:
+        SpecifyFilter( contents ) 
+    else:
+        ReplaceProfanity( contents, blip )
 
 def OnWaveletBlipCreated( properties, context ):
     """Invoked when a new wavelet has been submitted"""
     blip = context.GetBlipById( properties['blipId'] )
-    ReplaceProfanity( blip )
+    contents = blip.GetDocument( ).GetText( )
 
-def ReplaceProfanity( blip ):
-    profane_words = [ "shit", "fuck", "rape", "damn", "cunt" ]
-    politically_correct_words = [ "poop", "gently caress", "surprise sex", "gosh darn", "beef curtains" ]
+    if 'LEARN/' in contents:
+        SpecifyFilter( contents ) 
+    else:
+        ReplaceProfanity( contents, blip )
 
-    for word in profane_words:
-        contents = blip.GetDocument( ).GetText( )
-		
-        if word in contents.lower( ):
-			"""Replace each profane word with it's politically correct alternative"""
-			q = '%s' % contents.lower( ).replace( word, politically_correct_words[ profane_words.index( word ) ] )
-			blip.GetDocument().SetText( q )
+def ReplaceProfanity( contents, blip ):
+    result = contents;
+
+    for word in contents.lower( ).split( ' ' ):
+        """Replace each profane word with it's politically correct alternative"""
+        """Remember to remove unnecessary whitespace on the word before searching for it"""
+        matched_words = db.GqlQuery( 'SELECT * FROM ProfaneWord WHERE base_word = :1', " ".join( word.split( ) ) )
+
+        for matched_word in matched_words:
+            if matched_word.correct_word:
+                result = '%s' % result.replace( word.lower( ), matched_word.correct_word )
+                blip.GetDocument().SetText( result )
+
+def SpecifyFilter( contents ):
+    new_words = contents.split( '/' )[1:]
+
+    profane_word = ProfaneWord( )
+    profane_word.base_word = new_words[0]
+    profane_word.correct_word = new_words[1]
+
+    profane_word.put( )
 
 if __name__ == '__main__':
 	profanity_modifier = robot.Robot( 'ProfanityModifier',
