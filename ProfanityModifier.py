@@ -35,26 +35,30 @@ def OnContentCreated( properties, context ):
     blip = context.GetBlipById( properties['blipId'] )
     contents = blip.GetDocument( ).GetText( )
 
-    if 'LEARN/' in contents:
+    # Do not try to learn a term if it wasn't the explicit blip
+    if contents.find( 'LEARN/' ) == 0:
         if not SpecifyFilter( contents ):
             root_wavelet = context.GetRootWavelet( )
             root_wavelet.CreateBlip( ).GetDocument( ).SetText( "Sorry, but I already know that word." )
     else:
-        blip.GetDocument().SetText( ReplaceProfanity( contents, blip ) )
+        ReplaceProfanity( contents, blip )
 
 def ReplaceProfanity( contents, blip ):
     """Replace each profane word with it's politically correct alternative"""
+    # Only update the blip if the content has actually been modified
+    content_changed = False
     result = contents.lower( );
+    # We store the entire list locally because it's easier and I don't feel
+    # like working out a fancier solution
+    total_word_list = db.GqlQuery( 'SELECT * FROM ProfaneWord' ) 
 
-    for word in contents.lower( ).split( ' ' ):
-        # Remember to remove unnecessary whitespace on the word before searching for it
-        matched_words = db.GqlQuery( 'SELECT * FROM ProfaneWord WHERE base_word = :1', " ".join( word.split( ) ) )
+    for word in total_word_list:
+        if word.base_word in contents.lower( ):
+            result = '%s' % result.replace( word.base_word, " ".join( word.correct_word.split( ) ) )
+            content_changed = True
 
-        for matched_word in matched_words:
-            if matched_word.correct_word:
-                result = '%s' % result.replace( word, matched_word.correct_word )
-
-    return result
+    if content_changed:
+        blip.GetDocument().SetText( result )
 
 def SpecifyFilter( contents ):
     new_words = contents.split( '/' )[1:]
