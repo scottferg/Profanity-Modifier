@@ -1,5 +1,5 @@
-application: test-sandbox
-version: 4
+application: profanity-modifier
+version: 5
 runtime: python
 api_version: 1
 
@@ -8,4 +8,3 @@ handlers:
   script: ProfanityModifier.py
 - url: /assets
   static_dir: assets
-
