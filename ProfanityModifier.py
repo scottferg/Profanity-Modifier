@@ -61,6 +61,9 @@ def ReplaceProfanity( contents, blip ):
         blip.GetDocument().SetText( result )
 
 def SpecifyFilter( contents ):
+    # v0.5.2 hotfix - Removed the LEARN/ feature to avoid further abuse
+    return True
+
     new_words = contents.split( '/' )[1:]
 
     profane_word = ProfaneWord( )
